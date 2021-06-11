@@ -32,33 +32,50 @@ class Board
 
   def check_result
     # horizontal
-    return horizontal_test unless horizontal_test == 'none'
-    return vertical_test unless vertical_test == 'none'
+    return check_horizontal unless check_horizontal == 'none'
+    return check_vertical unless check_vertical == 'none'
+    return check_diagonal1 unless check_diagonal1 == 'none'
+    return check_diagonal2 unless check_diagonal2 == 'none'
   end
 
+  protected
 
-  def horizontal_test
+  def check_horizontal
     (0..2).each do |sub_array|
-      test_array = @board[sub_array].join
-      return 'X' if test_array == 'XXX'
-      return 'O' if test_array == 'OOO'
+      row_array = @board[sub_array].join
+      return 'X' if row_array == 'XXX'
+      return 'O' if row_array == 'OOO'
 
       next
     end
     'none'
   end
 
-  def vertical_test
+  def check_vertical
     (0..2).each do |column|
-      test_array = [@board[column][0], @board[column][1], @board[column][2]].join
-      return 'X' if test_array == 'XXX'
-      return 'O' if test_array == 'OOO'
+      column_array = [@board[column][0], @board[column][1], @board[column][2]].join
+      return 'X' if column_array == 'XXX'
+      return 'O' if column_array == 'OOO'
     end
     'none'
   end
 
-end
+  def check_diagonal1
+    diagonal_array = [@board[0][0], @board[1][1], @board[2][2]].join
+    return 'X' if diagonal_array == 'XXX'
+    return 'O' if diagonal_array == 'OOO'
 
+    'none'
+  end
+
+  def check_diagonal2
+    diagonal = [@board[2][0], @board[1][1], @board[0][2]].join
+    return 'X' if diagonal == 'XXX'
+    return 'O' if diagonal == 'OOO'
+
+    'none'
+  end
+end
 
 # Testing
 if $PROGRAM_NAME == __FILE__
@@ -69,15 +86,18 @@ if $PROGRAM_NAME == __FILE__
       puts "ERROR #{test_name} failed. Expected #{expect}, got #{actual}"
     end
   end
-  # board1 = Board.new
-  # puts 'X in upper right corner:'
-  # board1.update_board(0, 2, 'X')
-  # board1.show_board
-  # puts ''
 
-  # puts 'O in upper center:'
-  # board1.update_board(1, 1, 'O')
-  # board1.show_board
+  def test_show_board
+    board1 = Board.new
+    puts 'X in upper right corner:'
+    board1.update_board(0, 2, 'X')
+    board1.show_board
+    puts ''
+
+    puts 'O in upper center:'
+    board1.update_board(1, 1, 'O')
+    board1.show_board
+  end
 
   # confirm no result
 
@@ -107,16 +127,32 @@ if $PROGRAM_NAME == __FILE__
   def test_vertical_winner
     board3 = Board.new
     (0..2).each do |row|
-      board3.update_board(row, 2, "O")
+      board3.update_board(row, 2, 'O')
     end
     expect = 'O'
     actual = board3.check_result
     test_results(expect, actual, __method__)
   end
 
+  def test_diagonal1
+    board4 = Board.new
+    (0..2).each do |element|
+      board4.update_board(element, element, 'X')
+    end
+    expect = 'X'
+    actual = board4.check_result
+    test_results(expect, actual, __method__)
+  end
 
-
-
+  def test_diagonal2
+    board5 = Board.new
+    board5.update_board(0, 2, 'X')
+    board5.update_board(1, 1, 'X')
+    board5.update_board(2, 0, 'X')
+    expect = 'X'
+    actual = board5.check_result
+    test_results(expect, actual, __method__)
+  end
   # vertical winner
 
   # diagonal winner
@@ -126,6 +162,8 @@ if $PROGRAM_NAME == __FILE__
   test_horizontal_winner1
   test_horizontal_winner2
   test_vertical_winner
+  test_diagonal1
+  test_diagonal2
 
 
 end
