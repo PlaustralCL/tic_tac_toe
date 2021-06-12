@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
+# Track the status and update the tic tac toe board. Also has methods to
+# check for  winning conditions.
 class Board
-  BOARD_TEMPLATE = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-  ].freeze
-
   def initialize
     @grid =
       [
@@ -128,9 +124,6 @@ if $PROGRAM_NAME == __FILE__
     board1.show_board
   end
 
-  # confirm no result
-
-  # horizontal winner
   def test_horizontal_winner1
     # test with X
     board2 = Board.new
@@ -206,6 +199,4 @@ if $PROGRAM_NAME == __FILE__
   test_diagonal1
   test_diagonal2
   test_reset
-  # test_new_board
-
 end
