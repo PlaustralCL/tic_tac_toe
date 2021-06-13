@@ -1,0 +1,6 @@
+Metrics/MethodLength:
+  CountAsOne: ['array', 'hash', 'heredoc']
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
