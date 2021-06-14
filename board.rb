@@ -5,6 +5,7 @@ require_relative "./color"
 # Track the status and update the tic tac toe board. Also has methods to
 # check for  winning conditions.
 # X = "\e[1;36mX\e[0m"
+# O = "\e[1;31mO\e[0m"
 class Board
   def initialize
     @grid =
@@ -46,6 +47,9 @@ class Board
     return check_vertical unless check_vertical == "none"
     return check_diagonal1 unless check_diagonal1 == "none"
     return check_diagonal2 unless check_diagonal2 == "none"
+
+    # default return value if no winner is found
+    "none"
   end
 
   # Resets the board back to the starting configuration
@@ -65,7 +69,7 @@ class Board
     (0..2).each do |sub_array|
       row = @grid[sub_array].join
       return "X" if row == "\e[1;36mX\e[0m\e[1;36mX\e[0m\e[1;36mX\e[0m"
-      return "O" if row == "OOO"
+      return "O" if row == "\e[1;31mO\e[0m\e[1;31mO\e[0m\e[1;31mO\e[0m"
 
       next
     end
@@ -75,24 +79,24 @@ class Board
   def check_vertical
     (0..2).each do |column|
       column_string = [@grid[0][column], @grid[1][column], @grid[2][column]].join
-      return "X" if column_string == "XXX"
-      return "O" if column_string == "OOO"
+      return "X" if column_string == "\e[1;36mX\e[0m\e[1;36mX\e[0m\e[1;36mX\e[0m"
+      return "O" if column_string == "\e[1;31mO\e[0m\e[1;31mO\e[0m\e[1;31mO\e[0m"
     end
     "none"
   end
 
   def check_diagonal1
     diagonal = [@grid[0][0], @grid[1][1], @grid[2][2]].join
-    return "X" if diagonal == "XXX"
-    return "O" if diagonal == "OOO"
+    return "X" if diagonal == "\e[1;36mX\e[0m\e[1;36mX\e[0m\e[1;36mX\e[0m"
+    return "O" if diagonal == "\e[1;31mO\e[0m\e[1;31mO\e[0m\e[1;31mO\e[0m"
 
     "none"
   end
 
   def check_diagonal2
     diagonal = [@grid[2][0], @grid[1][1], @grid[0][2]].join
-    return "X" if diagonal == "XXX"
-    return "O" if diagonal == "OOO"
+    return "X" if diagonal == "\e[1;36mX\e[0m\e[1;36mX\e[0m\e[1;36mX\e[0m"
+    return "O" if diagonal == "\e[1;31mO\e[0m\e[1;31mO\e[0m\e[1;31mO\e[0m"
 
     "none"
   end
@@ -118,88 +122,15 @@ if $PROGRAM_NAME == __FILE__
   def test_show_board
     board1 = Board.new
     puts "X in upper right corner:"
-    board1.update_board(0, 2, "X")
+    board1.update_board(0, 2, "\e[1;36mX\e[0m")
     board1.show_board
     puts ""
 
     puts "O in upper center:"
-    board1.update_board(1, 1, "O")
+    board1.update_board(1, 1, "\e[1;31mO\e[0m")
     board1.show_board
   end
 
-  def test_horizontal_winner1
-    # test with X
-    board2 = Board.new
-    (0..2).each do |element|
-      board2.update_board(1, element, "\e[1;36mX\e[0m")
-    end
-    expect = "X"
-    actual = board2.check_result
-    board2.show_board
-    test_results(expect, actual, __method__)
-  end
-
-  def test_horizontal_winner2
-    # test with O
-    board92 = Board.new
-    (0..2).each do |element|
-      board92.update_board(2, element, "O")
-    end
-    expect = "O"
-    actual = board92.check_result
-    board92.show_board
-    test_results(expect, actual, __method__)
-  end
-
-  def test_vertical_winner
-    board3 = Board.new
-    (0..2).each do |row|
-      board3.update_board(row, 2, "O")
-    end
-    expect = "O"
-    actual = board3.check_result
-    board3.show_board
-    test_results(expect, actual, __method__)
-  end
-
-  def test_diagonal1
-    board4 = Board.new
-    (0..2).each do |element|
-      board4.update_board(element, element, "X")
-    end
-    expect = "X"
-    actual = board4.check_result
-    board4.show_board
-    test_results(expect, actual, __method__)
-  end
-
-  def test_diagonal2
-    board5 = Board.new
-    (0..2).each do |element|
-      board5.update_board(element, 2 - element, "X")
-    end
-    expect = "X"
-    actual = board5.check_result
-    board5.show_board
-    test_results(expect, actual, __method__)
-  end
-
-  def test_reset
-    board6 = Board.new
-    board6.update_board(1, 1, "X")
-    board6.show_board
-    expect = Board.new
-    expect.show_board
-    expect = expect.board_status
-    actual = board6.reset
-    test_results(expect, actual, __method__)
-  end
-
-  # call test functions
-  test_horizontal_winner1
-  # test_horizontal_winner2
-  # test_vertical_winner
-  # test_diagonal1
-  # test_diagonal2
-  # test_reset
+  test_new_board
+  test_show_board
 end
