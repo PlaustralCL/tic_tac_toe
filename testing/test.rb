@@ -11,9 +11,9 @@ class Test
 
   def assert_equal(expected, actual, test_name)
     if expected == actual
-      puts "#{'Passed'.green} #{test_name}. #{actual} is #{expected} as expected"
+      puts "#{'Passed'.green} #{test_name}. Actual is '#{actual}' as expected"
     else
-      puts "#{'Failed'.red} #{test_name}. Expected #{expected} but got #{actual}"
+      puts "#{'Failed'.red} #{test_name}. Expected '#{expected}' but got '#{actual}'"
     end
   end
 end
