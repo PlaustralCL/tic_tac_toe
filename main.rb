@@ -4,6 +4,8 @@ require_relative "./color"
 require_relative "./user"
 require_relative "./board"
 
+MARKER_CHOICES = ["\e[1;36mX\e[0m", "\e[1;31mO\e[0m"].freeze
+
 # Prompts for the users to enter their names. Returns an array of the user objects
 # @return players [Array] User objects
 def input_names
@@ -31,9 +33,9 @@ puts "Welcome to Tic Tack Toe"
 puts "This game is designed for two human players"
 puts ""
 players = input_names
-player1 = players[0]
-player2 = players[1]
-puts "Welcome #{player1.name} and #{player2.name}!"
+puts "Welcome #{players[0].name} and #{players[1].name}!"
+players[0].choose_first_marker
+puts "#{players[0].name} selected  #{players[0].marker}"
 
 # if $PROGRAM_NAME == __FILE__
 #   main
