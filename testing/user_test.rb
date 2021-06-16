@@ -28,7 +28,7 @@ class UserTest < Test
     assert_equal(expected, actual, __method__)
   end
 
-  def test_choose_first_marker_o
+  def xtest_choose_first_marker_o
     player = User.new("Joe")
     player.choose_first_marker
     actual = player.marker
