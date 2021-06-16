@@ -47,6 +47,7 @@ class Board
     return check_vertical unless check_vertical == "none"
     return check_diagonal1 unless check_diagonal1 == "none"
     return check_diagonal2 unless check_diagonal2 == "none"
+    return check_tie unless check_tie == "none"
 
     # default return value if no winner is found
     "none"
@@ -99,6 +100,13 @@ class Board
     return "O" if diagonal == "\e[1;31mO\e[0m\e[1;31mO\e[0m\e[1;31mO\e[0m"
 
     "none"
+  end
+
+  def check_tie
+    @grid.flatten.each do |element|
+      return "none" if element.class == Integer
+    end
+    "tie"
   end
 end
 

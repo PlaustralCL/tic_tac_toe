@@ -98,7 +98,17 @@ class BoardTest < Test
     assert_equal(expect, actual, __method__)
   end
 
-
+  def test_check_tie
+    board_tie = Board.new
+    (0..2).each do |sub_array|
+      (0..2).each do |element|
+        board_tie.update_board(sub_array, element, "A")
+      end
+    end
+    actual = board_tie.check_result
+    expect = "tie"
+    assert_equal(expect, actual, __method__)
+  end
 end
 
 test = BoardTest.new
