@@ -18,7 +18,15 @@ end
 
 
 
+def clear_terminal
+  system("clear") || system("cls")
+end
 
+def coin_flip
+  rand(2)
+end
+
+clear_terminal
 puts "Welcome to Tic Tack Toe"
 puts "This game is designed for two human players"
 puts ""
