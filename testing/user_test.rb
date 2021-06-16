@@ -19,6 +19,22 @@ class UserTest < Test
     actual = player1.marker
     assert_equal(expected, actual, __method__)
   end
+
+  def test_choose_first_marker_x
+    player = User.new("Joe")
+    player.choose_first_marker
+    actual = player.marker
+    expected = "\e[1;36mX\e[0m"
+    assert_equal(expected, actual, __method__)
+  end
+
+  def test_choose_first_marker_o
+    player = User.new("Joe")
+    player.choose_first_marker
+    actual = player.marker
+    expected = "\e[1;31mO\e[0m"
+    assert_equal(expected, actual, __method__)
+  end
 end
 
 test = UserTest.new
