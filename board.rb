@@ -104,7 +104,7 @@ class Board
 
   def check_tie
     @grid.flatten.each do |element|
-      return "none" if element.class == Integer
+      return "none" if element.instance_of?(Integer)
     end
     "tie"
   end
