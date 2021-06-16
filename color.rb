@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # Adds color to strings printed to the terminal
+# This is based almost entirely on this stackoverflow answer:
+# https://stackoverflow.com/a/11482430
 class String
   def colorize(special=0, color_code)
     "\e[#{special};#{color_code}m#{self}\e[0m"
