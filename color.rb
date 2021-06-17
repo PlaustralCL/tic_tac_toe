@@ -55,6 +55,11 @@ class String
   def bold_light_blue
     colorize(1, 36)
   end
+
+  def bold
+    colorize(1, 37)
+  end
+
 end
 
 if $PROGRAM_NAME == __FILE__
@@ -64,4 +69,5 @@ if $PROGRAM_NAME == __FILE__
   puts "testing bold green".bold_green
   puts "testing blue".blue
   puts "testing bold blue".bold_blue
+  puts "testing bold".bold
 end
