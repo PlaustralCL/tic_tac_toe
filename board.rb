@@ -25,6 +25,13 @@ class Board
     @grid[sub_array][element] = marker
   end
 
+  def validate_move(move)
+    remaining_moves = @grid.flatten.each_with_object([]) do |item, array|
+      array.push(item) if item.instance_of?(Integer)
+    end
+    remaining_moves.include?(move)
+  end
+
   def board_status
     @grid
   end
@@ -38,6 +45,7 @@ class Board
     puts " #{@grid[1][0]} | #{@grid[1][1]} | #{@grid[1][2]} "
     puts "---+---+---"
     puts " #{@grid[2][0]} | #{@grid[2][1]} | #{@grid[2][2]} "
+    puts ""
   end
 
   # Checks for a winning result by testing each row, column, and diagonal
