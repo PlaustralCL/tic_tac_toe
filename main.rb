@@ -64,9 +64,14 @@ result = "none"
 
 # Choose moves
 (0..8).each do |round_number|
-  turn = round_number % 2.0 == 0.0 ? 0 : 1
-  print "#{players[turn].name} please select a number for your move: "
-  move = gets.chomp.to_i
+  turn = round_number % 2
+  move = 0
+  loop do
+    print "#{players[turn].name} please select a number for your move: "
+    move = gets.chomp.to_i
+    break if (1..9).include?(move) && board.valid_move?(move)
+  end
+
   move = Board.translate_move(move)
 
   board.update_board(move[:sub_array], move[:element], players[turn].marker)
@@ -74,8 +79,6 @@ result = "none"
   clear_terminal
   board.show_board
   result = board.check_result
-  p result
-  gets
   break if %w[X O tie].include?(result)
 end
 
