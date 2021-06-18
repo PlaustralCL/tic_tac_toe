@@ -3,10 +3,19 @@
 require_relative "../color"
 
 # Class for performing basic tests
+# Based on https://testing-for-beginners.rubymonstas.org/testing/classes.html
 class Test
   def run
     tests = methods.select { |method| method.to_s.start_with?("test_") }
     tests.each { |test| send(test) }
+  end
+
+  def assert_true(actual, test_name)
+    assert_equal(true, actual, test_name)
+  end
+
+  def assert_false(actual, test_name)
+    assert_equal(false, actual, test_name)
   end
 
   def assert_equal(expected, actual, test_name)
