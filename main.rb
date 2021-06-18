@@ -50,31 +50,39 @@ print "Press `Enter` to continue "
 gets.chomp
 
 # Play game
+
+# Determines who goes first
 first_chooser = coin_flip
 second_chooser = ([0, 1] - [first_chooser]).join.to_i
 players[0], players[1] = players[first_chooser], players[second_chooser]
+
+# set up and show initial board
 clear_terminal
 board = Board.new
 board.show_board
-print "#{players[0].name} please select a number for your move: "
-move = gets.chomp.to_i
+result = "none"
 
-case move
-when 1
-  sub_array = 0
-  element = 0
-when 2
-  sub_array = 0
-  element = 1
-when 3
-  sub_array = 0
-  element = 2
+# Choose moves
+(0..8).each do |round_number|
+  turn = round_number % 2.0 == 0.0 ? 0 : 1
+  print "#{players[turn].name} please select a number for your move: "
+  move = gets.chomp.to_i
+  move = Board.translate_move(move)
+
+  board.update_board(move[:sub_array], move[:element], players[turn].marker)
+
+  clear_terminal
+  board.show_board
+  result = board.check_result
+  p result
+  gets
+  break if %w[X O tie].include?(result)
 end
 
-board.update_board(sub_array, element, players[0].marker)
-clear_terminal
-board.show_board
-print "#{players[0].name} please select a number for your move: "
+puts "The winner is #{result}"
+
+
+
 
 
 
