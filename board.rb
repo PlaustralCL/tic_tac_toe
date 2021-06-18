@@ -7,6 +7,24 @@ require_relative "./color"
 # X = "\e[1;36mX\e[0m"
 # O = "\e[1;31mO\e[0m"
 class Board
+  # Translates the integer move to the sub array and element of the grid array
+  # @param move [Integer] A number from 1 - 9
+  # @return [Array] Array with the sub_array and element
+  def self.translate_move(move)
+    decoder = {
+      1 => { sub_array: 0, element: 0 },
+      2 => { sub_array: 0, element: 1 },
+      3 => { sub_array: 0, element: 2 },
+      4 => { sub_array: 1, element: 0 },
+      5 => { sub_array: 1, element: 1 },
+      6 => { sub_array: 1, element: 2 },
+      7 => { sub_array: 2, element: 0 },
+      8 => { sub_array: 2, element: 1 },
+      9 => { sub_array: 2, element: 2 }
+    }
+    [decoder[move][:sub_array], decoder[move][:element]]
+  end
+
   def initialize
     @grid =
       [
@@ -25,7 +43,10 @@ class Board
     @grid[sub_array][element] = marker
   end
 
-  def validate_move(move)
+  # Validate if the move choosen (1-9) is available
+  # @param move [Integer] An integer between 1 and 9
+  # @return [Boolean] True if the move is valid, otherwise false
+  def valid_move?(move)
     remaining_moves = @grid.flatten.each_with_object([]) do |item, array|
       array.push(item) if item.instance_of?(Integer)
     end

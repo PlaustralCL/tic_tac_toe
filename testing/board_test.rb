@@ -125,6 +125,12 @@ class BoardTest < Test
     actual = board.valid_move?(1)
     assert_true(actual, __method__)
   end
+
+  def test_translate_move
+    actual = Board.translate_move(8)
+    expect = [2, 1]
+    assert_equal(expect, actual, __method__)
+  end
 end
 
 test = BoardTest.new
