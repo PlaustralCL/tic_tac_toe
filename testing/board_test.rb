@@ -32,7 +32,7 @@ class BoardTest < Test
     end
     expect = "X"
     actual = board2.check_result
-    board2.show_board
+    # board2.show_board
     assert_equal(expect, actual, __method__)
   end
 
@@ -44,7 +44,7 @@ class BoardTest < Test
     end
     expect = "O"
     actual = board92.check_result
-    board92.show_board
+    # board92.show_board
     assert_equal(expect, actual, __method__)
   end
 
@@ -55,7 +55,7 @@ class BoardTest < Test
     end
     expect = "O"
     actual = board3.check_result
-    board3.show_board
+    # board3.show_board
     assert_equal(expect, actual, __method__)
   end
 
@@ -66,7 +66,7 @@ class BoardTest < Test
     end
     expect = "X"
     actual = board4.check_result
-    board4.show_board
+    # board4.show_board
     assert_equal(expect, actual, __method__)
   end
 
@@ -77,16 +77,16 @@ class BoardTest < Test
     end
     expect = "X"
     actual = board5.check_result
-    board5.show_board
+    # board5.show_board
     assert_equal(expect, actual, __method__)
   end
 
   def test_reset
     board6 = Board.new
     board6.update_board(1, 1, "\e[1;36mX\e[0m")
-    board6.show_board
+    # board6.show_board
     expect = Board.new
-    expect.show_board
+    # expect.show_board
     expect = expect.board_status
     actual = board6.reset
     assert_equal(expect, actual, __method__)
@@ -108,6 +108,22 @@ class BoardTest < Test
     actual = board_tie.check_result
     expect = "tie"
     assert_equal(expect, actual, __method__)
+  end
+
+  def test_valid_move_is_false
+    # Test for move already taken
+    board = Board.new
+    board.update_board(1, 1, "A")
+    actual = board.valid_move?(5)
+    assert_false(actual, __method__)
+  end
+
+  def test_valid_move_is_true
+    #Test for move available
+    board = Board.new
+    board.update_board(1, 1, "A")
+    actual = board.valid_move?(1)
+    assert_true(actual, __method__)
   end
 end
 
