@@ -9,7 +9,7 @@ require_relative "./color"
 class Board
   # Translates the integer move to the sub array and element of the grid array
   # @param move [Integer] A number from 1 - 9
-  # @return [Array] Array with the sub_array and element
+  # @return [Hash] Hash with the sub_array and element
   def self.translate_move(move)
     decoder = {
       1 => { sub_array: 0, element: 0 },
@@ -22,7 +22,7 @@ class Board
       8 => { sub_array: 2, element: 1 },
       9 => { sub_array: 2, element: 2 }
     }
-    [decoder[move][:sub_array], decoder[move][:element]]
+    decoder[move]
   end
 
   def initialize
@@ -69,7 +69,19 @@ class Board
     puts ""
   end
 
+  # Resets the board back to the starting configuration
+  def reset
+    @grid =
+      [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+      ]
+    @grid
+  end
+
   # Checks for a winning result by testing each row, column, and diagonal
+  # @return [String] A string representing the winning side: "X", "Y", "tie", "none"
   def check_result
     # horizontal
     return check_horizontal unless check_horizontal == "none"
@@ -80,17 +92,6 @@ class Board
 
     # default return value if no winner is found
     "none"
-  end
-
-  # Resets the board back to the starting configuration
-  def reset
-    @grid =
-      [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9]
-      ]
-    @grid
   end
 
   protected

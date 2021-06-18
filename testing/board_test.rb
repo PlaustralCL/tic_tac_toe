@@ -128,7 +128,7 @@ class BoardTest < Test
 
   def test_translate_move
     actual = Board.translate_move(8)
-    expect = [2, 1]
+    expect = { sub_array: 2, element: 1 }
     assert_equal(expect, actual, __method__)
   end
 end
