@@ -18,8 +18,6 @@ def input_names
   players
 end
 
-
-
 def clear_terminal
   system("clear") || system("cls")
 end
@@ -60,6 +58,7 @@ players[0], players[1] = players[first_chooser], players[second_chooser]
 # set up and show initial board
 clear_terminal
 board = Board.new
+puts "Tic Tac Toe"
 board.show_board
 result = "none"
 
@@ -68,7 +67,7 @@ result = "none"
   turn = round_number % 2
   move = 0
   loop do
-    print "#{players[turn].name} please select a number for your move: "
+    print "#{players[turn].name.bold}, please select a number (1-9) that is available for your turn: "
     move = gets.chomp.to_i
     break if (1..9).include?(move) && board.valid_move?(move)
   end
@@ -78,18 +77,19 @@ result = "none"
   board.update_board(move[:sub_array], move[:element], players[turn].marker)
 
   clear_terminal
+  puts "Tic Tac Toe"
   board.show_board
   result = board.check_result
   break if %w[X O tie].include?(result)
 end
 
-winner = if result.downcase == players[0].short_marker
-           players[0].name
-         else
-           players[1].name
-         end
-
-puts "The winner is #{winner}!"
+if result.downcase == players[0].short_marker
+  puts "The winner is ${players[0].name}!"
+elsif result.downcase == players[1].short_marker
+  puts "The winner is ${players[1].name}!"
+else
+  puts "The game is a tie."
+end
 
 # if $PROGRAM_NAME == __FILE__
 #   main
