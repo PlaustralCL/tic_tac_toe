@@ -44,6 +44,7 @@ second_chooser = ([0, 1] - [first_chooser]).join.to_i
 puts "Before we begin markers for the board need to be choosen. #{players[first_chooser].name} will go first."
 players[first_chooser].choose_first_marker
 players[second_chooser].marker = (MARKER_CHOICES - [players[first_chooser].marker]).join
+players[second_chooser].short_marker = (%w[x y] - [players[first_chooser].short_marker]).join
 print "#{players[first_chooser].name} selected  #{players[first_chooser].marker}. "
 puts "That means #{players[second_chooser].name} is #{players[second_chooser].marker}"
 print "Press `Enter` to continue "
@@ -82,12 +83,13 @@ result = "none"
   break if %w[X O tie].include?(result)
 end
 
-puts "The winner is #{result}"
+winner = if result.downcase == players[0].short_marker
+           players[0].name
+         else
+           players[1].name
+         end
 
-
-
-
-
+puts "The winner is #{winner}!"
 
 # if $PROGRAM_NAME == __FILE__
 #   main
