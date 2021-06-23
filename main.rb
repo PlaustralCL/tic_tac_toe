@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pry'
 require_relative "./color"
 require_relative "./user"
 require_relative "./board"
@@ -41,8 +42,12 @@ first_chooser = coin_flip
 second_chooser = ([0, 1] - [first_chooser]).join.to_i
 puts "Before we begin markers for the board need to be choosen. #{players[first_chooser].name} will go first."
 players[first_chooser].choose_first_marker
+
+# The second player gets the only remaining marker, no choice
 players[second_chooser].marker = (MARKER_CHOICES - [players[first_chooser].marker]).join
-players[second_chooser].short_marker = (%w[x y] - [players[first_chooser].short_marker]).join
+players[second_chooser].short_marker = (%w[x o] - [players[first_chooser].short_marker]).join
+
+# Announce the markers
 print "#{players[first_chooser].name} selected  #{players[first_chooser].marker}. "
 puts "That means #{players[second_chooser].name} is #{players[second_chooser].marker}"
 print "Press `Enter` to continue "
@@ -60,7 +65,6 @@ clear_terminal
 board = Board.new
 puts "Tic Tac Toe"
 board.show_board
-result = "none"
 
 # Choose moves
 (0..8).each do |round_number|
@@ -79,14 +83,14 @@ result = "none"
   clear_terminal
   puts "Tic Tac Toe"
   board.show_board
-  result = board.check_result
-  break if %w[X O tie].include?(result)
+  # result = board.check_result
+  break if %w[X O tie].include?(board.check_result)
 end
 
-if result.downcase == players[0].short_marker
-  puts "The winner is ${players[0].name}!"
+if board.check_result.downcase == players[0].short_marker
+  puts "The winner is #{players[0].name}!"
 elsif result.downcase == players[1].short_marker
-  puts "The winner is ${players[1].name}!"
+  puts "The winner is #{players[1].name}!"
 else
   puts "The game is a tie."
 end
