@@ -11,16 +11,21 @@ class User
     @name = name
   end
 
-  # Allows the players to choose their marker
-  def choose_first_marker
-    loop do
-      print "#{@name} please choose '#{MARKER_CHOICES[0]}' or '#{MARKER_CHOICES[1]}': "
-      marker = gets.chomp.downcase
-      next unless %w[x o].include?(marker)
+  # Assigns a marker and the corresponding short marker to the first player.
+  #
+  # @param marker [String] The marker choosen by the first player, "x" or "o".
+  def assign_first_marker(marker)
+    @marker = marker == "x" ? MARKER_CHOICES[0] : MARKER_CHOICES[1]
+    @short_marker = marker
+  end
 
-      @marker = marker == "x" ? MARKER_CHOICES[0] : MARKER_CHOICES[1]
-      @short_marker = marker
-      return
-    end
+  # Assigns a marker and the corresponding short marker to the second player.
+  # The second player gets the only remaining marker, no choice.
+  #
+  # @param used_marker [String] The marker assigned to the first player
+  # @param short_marker [String] The short marker assigned to the first player
+  def assign_second_marker(used_marker, short_marker)
+    @marker = (MARKER_CHOICES - [used_marker]).join
+    @short_marker = (%w[x o] - [short_marker]).join
   end
 end

@@ -19,8 +19,20 @@ def input_names
   players
 end
 
+def choose_move(board, players, turn)
+  move = ""
+  loop do
+    print "#{players[turn].name.bold}, please select a number (1-9) that is available for your turn: "
+    move = gets.chomp.to_i
+    break if (1..9).include?(move) && board.valid_move?(move)
+
+    puts "That is not a valid choice".red
+  end
+  move
+end
+
 def clear_terminal
-  system("clear") || system("cls")
+  system("clear") || system("Cl's")
 end
 
 def coin_flip
@@ -40,12 +52,22 @@ puts ""
 # Choose markers
 first_chooser = coin_flip
 second_chooser = ([0, 1] - [first_chooser]).join.to_i
+marker = ""
 puts "Before we begin markers for the board need to be choosen. #{players[first_chooser].name} will go first."
-players[first_chooser].choose_first_marker
+
+# Input for first marker
+loop do
+  print "#{players[first_chooser].name.bold}, please choose '#{MARKER_CHOICES[0]}' or '#{MARKER_CHOICES[1]}': "
+  marker = gets.chomp.downcase
+  break if %w[x o].include?(marker)
+
+  puts "That is not a valid choice".red
+end
+
+players[first_chooser].assign_first_marker(marker)
 
 # The second player gets the only remaining marker, no choice
-players[second_chooser].marker = (MARKER_CHOICES - [players[first_chooser].marker]).join
-players[second_chooser].short_marker = (%w[x o] - [players[first_chooser].short_marker]).join
+players[second_chooser].assign_second_marker(players[first_chooser].marker, players[first_chooser].short_marker)
 
 # Announce the markers
 puts ""
@@ -71,12 +93,14 @@ board.show_board
 (0..8).each do |round_number|
   turn = round_number % 2
   move = 0
-  loop do
-    print "#{players[turn].name.bold}, please select a number (1-9) that is available for your turn: "
-    move = gets.chomp.to_i
-    break if (1..9).include?(move) && board.valid_move?(move)
-  end
+  # loop do
+  #   print "#{players[turn].name.bold}, please select a number (1-9) that is available for your turn: "
+  #   move = gets.chomp.to_i
+  #   break if (1..9).include?(move) && board.valid_move?(move)
 
+  #   puts "That is not a valid choice".red
+  # end
+  move = choose_move(board, players, turn)
   move = Board.translate_move(move)
 
   board.update_board(move[:sub_array], move[:element], players[turn].marker)
