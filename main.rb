@@ -48,6 +48,7 @@ players[second_chooser].marker = (MARKER_CHOICES - [players[first_chooser].marke
 players[second_chooser].short_marker = (%w[x o] - [players[first_chooser].short_marker]).join
 
 # Announce the markers
+puts ""
 print "#{players[first_chooser].name} selected  #{players[first_chooser].marker}. "
 puts "That means #{players[second_chooser].name} is #{players[second_chooser].marker}"
 print "Press `Enter` to continue "
@@ -83,13 +84,13 @@ board.show_board
   clear_terminal
   puts "Tic Tac Toe"
   board.show_board
-  # result = board.check_result
+
   break if %w[X O tie].include?(board.check_result)
 end
 
 if board.check_result.downcase == players[0].short_marker
   puts "The winner is #{players[0].name}!"
-elsif result.downcase == players[1].short_marker
+elsif board.check_result.downcase == players[1].short_marker
   puts "The winner is #{players[1].name}!"
 else
   puts "The game is a tie."
