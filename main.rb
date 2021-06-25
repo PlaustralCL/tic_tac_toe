@@ -31,6 +31,35 @@ def choose_move(board, players, turn)
   move
 end
 
+def setup_terminal(board)
+  clear_terminal
+  puts "Tic Tac Toe"
+  board.show_board
+end
+
+def show_game_result(board, players)
+  if board.check_result.downcase == players[0].short_marker
+    puts "The winner is #{players[0].name}!"
+  elsif board.check_result.downcase == players[1].short_marker
+    puts "The winner is #{players[1].name}!"
+  else
+    puts "The game is a tie."
+  end
+end
+
+def play_game(board, players)
+  (0..8).each do |round_number|
+    turn = round_number % 2
+    move = choose_move(board, players, turn)
+    move = Board.translate_move(move)
+
+    board.update_board(move[:sub_array], move[:element], players[turn].marker)
+
+    setup_terminal(board)
+    break if %w[X O tie].include?(board.check_result)
+  end
+end
+
 def clear_terminal
   system("clear") || system("Cl's")
 end
@@ -84,41 +113,11 @@ second_chooser = ([0, 1] - [first_chooser]).join.to_i
 players[0], players[1] = players[first_chooser], players[second_chooser]
 
 # set up and show initial board
-clear_terminal
 board = Board.new
-puts "Tic Tac Toe"
-board.show_board
+setup_terminal(board)
 
-# Choose moves
-(0..8).each do |round_number|
-  turn = round_number % 2
-  move = 0
-  # loop do
-  #   print "#{players[turn].name.bold}, please select a number (1-9) that is available for your turn: "
-  #   move = gets.chomp.to_i
-  #   break if (1..9).include?(move) && board.valid_move?(move)
-
-  #   puts "That is not a valid choice".red
-  # end
-  move = choose_move(board, players, turn)
-  move = Board.translate_move(move)
-
-  board.update_board(move[:sub_array], move[:element], players[turn].marker)
-
-  clear_terminal
-  puts "Tic Tac Toe"
-  board.show_board
-
-  break if %w[X O tie].include?(board.check_result)
-end
-
-if board.check_result.downcase == players[0].short_marker
-  puts "The winner is #{players[0].name}!"
-elsif board.check_result.downcase == players[1].short_marker
-  puts "The winner is #{players[1].name}!"
-else
-  puts "The game is a tie."
-end
+play_game(board, players)
+show_game_result(board, players)
 
 # if $PROGRAM_NAME == __FILE__
 #   main
