@@ -19,6 +19,13 @@ def input_names
   players
 end
 
+# Prompts players to enter their move. It checks to see if the choosen move is
+# valid. Loops until a valid move is selected
+#
+# @param board [Object] The board object
+# @param players [Array] The array tracking the user objects
+# @param turn [Integer] An integer from 0 to 1 indicating which user from players
+# gets to choose a move.
 def choose_move(board, players, turn)
   move = ""
   loop do
@@ -37,6 +44,10 @@ def setup_terminal(board)
   board.show_board
 end
 
+# Tracks playing up to 9 turns. Coordinates the helper functions.
+#
+# @param board [Object]
+# @param players [Array] Array containing the user objects
 def play_game(board, players)
   (0..8).each do |round_number|
     turn = round_number % 2
@@ -50,6 +61,10 @@ def play_game(board, players)
   end
 end
 
+# Announces the result of the game
+#
+# @param board [Object]
+# @param players [Array] Array containing the user objects
 def show_game_result(board, players)
   if board.check_result.downcase == players[0].short_marker
     puts "The winner is #{players[0].name}!"
@@ -60,6 +75,8 @@ def show_game_result(board, players)
   end
 end
 
+# Ask if the players want to play again. The default value is yes. Anything
+# other than 'n' or 'N' will be considered a yes.
 def new_game?
   print "Do you want to play again? (Y/n) "
   user_choice = gets.chomp.downcase
@@ -71,6 +88,7 @@ def clear_terminal
   system("clear") || system("Cl's")
 end
 
+# Randomly chooses 0 or 1
 def coin_flip
   rand(2)
 end
