@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "./test"
-require_relative "../board"
+require_relative "../lib/game/board.rb"
 
 # Testing for board.rb
 class BoardTest < Test

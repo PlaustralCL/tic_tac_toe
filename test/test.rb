@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../color"
+require_relative "../lib/utilities/color"
 
 # Class for performing basic tests
 # Based on https://testing-for-beginners.rubymonstas.org/testing/classes.html

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'pry'
-require_relative "./color"
-require_relative "./user"
-require_relative "./board"
+require "pry"
+require_relative "./lib/utilities/color"
+require_relative "./lib/game/user"
+require_relative "./lib/game/board"
 
 MARKER_CHOICES = ["\e[1;36mX\e[0m", "\e[1;31mO\e[0m"].freeze
 

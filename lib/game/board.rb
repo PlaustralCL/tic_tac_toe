@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./color"
+require_relative "../utilities/color"
 
 # Track the status and update the tic tac toe board. Also has methods to
 # check for  winning conditions.
