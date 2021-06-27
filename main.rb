@@ -37,16 +37,6 @@ def setup_terminal(board)
   board.show_board
 end
 
-def show_game_result(board, players)
-  if board.check_result.downcase == players[0].short_marker
-    puts "The winner is #{players[0].name}!"
-  elsif board.check_result.downcase == players[1].short_marker
-    puts "The winner is #{players[1].name}!"
-  else
-    puts "The game is a tie."
-  end
-end
-
 def play_game(board, players)
   (0..8).each do |round_number|
     turn = round_number % 2
@@ -58,6 +48,23 @@ def play_game(board, players)
     setup_terminal(board)
     break if %w[X O tie].include?(board.check_result)
   end
+end
+
+def show_game_result(board, players)
+  if board.check_result.downcase == players[0].short_marker
+    puts "The winner is #{players[0].name}!"
+  elsif board.check_result.downcase == players[1].short_marker
+    puts "The winner is #{players[1].name}!"
+  else
+    puts "The game is a tie."
+  end
+end
+
+def new_game?
+  print "Do you want to play again? (Y/n) "
+  user_choice = gets.chomp.downcase
+  # return false if user_choice == n, otherwise is true
+  (user_choice != "n")
 end
 
 def clear_terminal
@@ -102,22 +109,27 @@ players[second_chooser].assign_second_marker(players[first_chooser].marker, play
 puts ""
 print "#{players[first_chooser].name} selected  #{players[first_chooser].marker}. "
 puts "That means #{players[second_chooser].name} is #{players[second_chooser].marker}"
-print "Press `Enter` to continue "
-gets.chomp
+puts ""
 
 # Play game
+loop do
+  # Determines who goes first
+  first_chooser = coin_flip
+  second_chooser = ([0, 1] - [first_chooser]).join.to_i
+  players[0], players[1] = players[first_chooser], players[second_chooser]
+  puts ""
+  puts "I have flipped a coin, #{players[0].name.bold} will go first."
+  print "Press `Enter` to continue "
+  gets.chomp
 
-# Determines who goes first
-first_chooser = coin_flip
-second_chooser = ([0, 1] - [first_chooser]).join.to_i
-players[0], players[1] = players[first_chooser], players[second_chooser]
+  # set up and show initial board
+  board = Board.new
+  setup_terminal(board)
 
-# set up and show initial board
-board = Board.new
-setup_terminal(board)
-
-play_game(board, players)
-show_game_result(board, players)
+  play_game(board, players)
+  show_game_result(board, players)
+  break if new_game? == false
+end
 
 # if $PROGRAM_NAME == __FILE__
 #   main
