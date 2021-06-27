@@ -7,7 +7,9 @@ require_relative "../utilities/color"
 # X = "\e[1;36mX\e[0m"
 # O = "\e[1;31mO\e[0m"
 class Board
-  # Translates the integer move to the sub array and element of the grid array
+  # Translates the integer move selected by the player into the sub array and
+  # element of the grid array.
+  #
   # @param move [Integer] A number from 1 - 9
   # @return [Hash] Hash with the sub_array and element
   def self.translate_move(move)
@@ -35,6 +37,7 @@ class Board
   end
 
   # Updates the board array with the correct marker after a player's turn
+  #
   # @param sub_array [Integer] Identifies which sub array (0, 1, or 2) of @grid
   #   will be updated
   # @param element [Integer] Element of sub_array that will be updated
@@ -44,6 +47,7 @@ class Board
   end
 
   # Validate if the move choosen (1-9) is available
+  #
   # @param move [Integer] An integer between 1 and 9
   # @return [Boolean] True if the move is valid, otherwise false
   def valid_move?(move)
@@ -80,7 +84,10 @@ class Board
     @grid
   end
 
-  # Checks for a winning result by testing each row, column, and diagonal
+  # Checks for a winning result by testing each row, column, and diagonal. This
+  # relies on the protected methods to check for multiple possible winning
+  # conditions.
+  #
   # @return [String] A string representing the winning side: "X", "Y", "tie", "none"
   def check_result
     # horizontal
@@ -90,7 +97,7 @@ class Board
     return check_diagonal2 unless check_diagonal2 == "none"
     return check_tie unless check_tie == "none"
 
-    # default return value if no winner is found
+    # default return value if no winner or tie  is found
     "none"
   end
 

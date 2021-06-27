@@ -8,6 +8,7 @@ require_relative "./lib/game/board"
 MARKER_CHOICES = ["\e[1;36mX\e[0m", "\e[1;31mO\e[0m"].freeze
 
 # Prompts for the users to enter their names. Returns an array of the user objects
+#
 # @return players [Array] User objects
 def input_names
   players = []
@@ -93,6 +94,7 @@ def coin_flip
   rand(2)
 end
 
+# **** Main code ****
 # Welcome
 clear_terminal
 puts "Welcome to Tic Tac Toe"
@@ -129,7 +131,8 @@ print "#{players[first_chooser].name} selected  #{players[first_chooser].marker}
 puts "That means #{players[second_chooser].name} is #{players[second_chooser].marker}"
 puts ""
 
-# Play game
+# Play game. This will loop until the player says they do not
+# want another game.
 loop do
   # Determines who goes first
   first_chooser = coin_flip
@@ -148,7 +151,3 @@ loop do
   show_game_result(board, players)
   break if new_game? == false
 end
-
-# if $PROGRAM_NAME == __FILE__
-#   main
-# end
