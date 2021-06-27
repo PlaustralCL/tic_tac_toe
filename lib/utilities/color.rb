@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# Adds color to strings printed to the terminal
+# Adds color to strings printed to the terminal by extending the
+# functionality of the built in String class.
 # This is based almost entirely on this stackoverflow answer:
 # https://stackoverflow.com/a/11482430
 class String
