@@ -8,7 +8,6 @@ require_relative "./lib/game/game"
 
 MARKER_CHOICES = ["\e[1;36mX\e[0m", "\e[1;31mO\e[0m"].freeze
 
-# **** Main code ****
 # Welcome
 game = Game.new
 Game.clear_terminal
@@ -38,7 +37,8 @@ end
 game.players[first_chooser].assign_first_marker(marker)
 
 # The second player gets the only remaining marker, no choice
-game.players[second_chooser].assign_second_marker(game.players[first_chooser].marker, game.players[first_chooser].short_marker)
+game.players[second_chooser]
+    .assign_second_marker(game.players[first_chooser].marker, game.players[first_chooser].short_marker)
 
 # Announce the markers
 puts ""
@@ -60,13 +60,8 @@ loop do
 
   # set up and show initial board
   game.setup_terminal
-  # board = Board.new
-  # setup_terminal(board)
-
   game.play_game
-  # play_game(board, game.players)
   game.show_game_result
-  # show_game_result(board, game.players)
   break if game.new_game? == false
 
   game.board.reset
