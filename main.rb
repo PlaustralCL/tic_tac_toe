@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "pry"
+# require "pry"
 require_relative "./lib/utilities/color"
 require_relative "./lib/game/user"
 require_relative "./lib/game/board"
