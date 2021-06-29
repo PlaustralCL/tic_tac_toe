@@ -15,13 +15,14 @@ class Game
     rand(2)
   end
 
+  # Clears the terminal
   def self.clear_terminal
     system("clear") || system("Cl's")
   end
 
   def initialize
     @board = Board.new
-    @turns = 0
+    @turn = 0
   end
 
   # Prompts for the users to enter their names. Returns an array of the user objects
@@ -40,10 +41,6 @@ class Game
   # Prompts players to enter their move. It checks to see if the choosen move is
   # valid. Loops until a valid move is selected
   #
-  # @param board [Object] The board object
-  # @param players [Array] The array tracking the user objects
-  # @param turn [Integer] An integer from 0 to 1 indicating which user from players
-  # gets to choose a move.
   # @return [Hash] A hash containing the sub-array and element for the board grid.
   def choose_move
     move = ""
@@ -57,6 +54,7 @@ class Game
     move
   end
 
+  # Updates the terminal at the beginning of the game and after each move
   def setup_terminal
     self.class.clear_terminal
     puts "Tic Tac Toe"
@@ -64,9 +62,6 @@ class Game
   end
 
   # Tracks playing up to 9 turns. Coordinates the helper functions.
-  #
-  # @param board [Object]
-  # @param players [Array] Array containing the user objects
   def play_game
     (0..8).each do |round_number|
       @turn = round_number % 2
@@ -80,9 +75,6 @@ class Game
   end
 
   # Announces the result of the game
-  #
-  # @param board [Object]
-  # @param players [Array] Array containing the user objects
   def show_game_result
     if @board.check_result.downcase == @players[0].short_marker
       puts "The winner is #{@players[0].name}!"
@@ -101,8 +93,4 @@ class Game
     # return false if user_choice == n, otherwise is true
     (user_choice != "n")
   end
-
-
-
-
 end
