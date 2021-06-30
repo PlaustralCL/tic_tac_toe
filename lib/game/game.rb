@@ -45,7 +45,7 @@ class Game
   def choose_move
     move = ""
     loop do
-      print "#{@players[@turn].name.bold}, please select a number (1-9) that is available for your turn: "
+      print "#{@players[@turn].name.bold_yellow}, please select a number (1-9) that is available for your turn: "
       move = gets.chomp.to_i
       break if (1..9).include?(move) && @board.valid_move?(move)
 
@@ -77,9 +77,9 @@ class Game
   # Announces the result of the game
   def show_game_result
     if @board.check_result.downcase == @players[0].short_marker
-      puts "The winner is #{@players[0].name}!"
+      puts "#{@players[0].name.bold_yellow} is the winner!"
     elsif board.check_result.downcase == @players[1].short_marker
-      puts "The winner is #{@players[1].name}!"
+      puts "#{@players[0].name.bold_yellow} is the winner!"
     else
       puts "The game is a tie."
     end

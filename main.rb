@@ -27,7 +27,7 @@ puts "Before we begin markers for the board need to be choosen. #{game.players[f
 
 # Input for first marker
 loop do
-  print "#{game.players[first_chooser].name.bold}, please choose '#{MARKER_CHOICES[0]}' or '#{MARKER_CHOICES[1]}': "
+  print "#{game.players[first_chooser].name.bold_yellow}, please choose '#{MARKER_CHOICES[0]}' or '#{MARKER_CHOICES[1]}': "
   marker = gets.chomp.downcase
   break if %w[x o].include?(marker)
 
@@ -54,7 +54,7 @@ loop do
   second_chooser = ([0, 1] - [first_chooser]).join.to_i
   game.players[0], game.players[1] = game.players[first_chooser], game.players[second_chooser]
   puts ""
-  puts "I have flipped a coin, #{game.players[0].name.bold} will go first."
+  puts "I have flipped a coin, #{game.players[0].name.bold_yellow} will go first."
   print "Press `Enter` to continue "
   gets.chomp
 
