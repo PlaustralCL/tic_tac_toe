@@ -2,7 +2,7 @@
 [![Run on Repl.it](https://repl.it/badge/github/PlaustralCL/tic_tac_toe)](https://repl.it/github/PlaustralCL/tic_tac_toe)
 ## Description
 This is a simple terminal tic tac toe game. It was done as part of
-[The Odin Project](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-programming/lessons/tic-tac-toe). You can see a live version on [Replit.com](https://replit.com/@PlaustralCL/tictactoe#README.md). If it has not run in a while it may take a few seconds to load.
+[The Odin Project](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-programming/lessons/tic-tac-toe). You can see a [live version on Replit.com](https://replit.com/@PlaustralCL/tictactoe#README.md). If it has not run in a while it may take a few seconds to load.
 
 ## Reflections
 * This was the first Ruby project to use objects and my first time trying to
