@@ -1,5 +1,5 @@
 # Tic Tac Toe
-
+[![Run on Repl.it](https://repl.it/badge/github/PlaustralCL/tic_tac_toe)](https://repl.it/github/PlaustralCL/tic_tac_toe)
 ## Description
 This is a simple terminal tic tac toe game. It was done as part of
 [The Odin Project](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-programming/lessons/tic-tac-toe)
