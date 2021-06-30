@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "./test"
-require_relative "../lib/game/board.rb"
+require_relative "../lib/game/board"
 
 # Testing for board.rb
 class BoardTest < Test
@@ -119,7 +119,7 @@ class BoardTest < Test
   end
 
   def test_valid_move_is_true
-    #Test for move available
+    # Test for move available
     board = Board.new
     board.update_board(1, 1, "A")
     actual = board.valid_move?(1)

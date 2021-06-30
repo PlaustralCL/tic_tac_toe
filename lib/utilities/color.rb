@@ -5,7 +5,7 @@
 # This is based almost entirely on this stackoverflow answer:
 # https://stackoverflow.com/a/11482430
 class String
-  def colorize(special=0, color_code)
+  def colorize(color_code, special = 0)
     "\e[#{special};#{color_code}m#{self}\e[0m"
   end
 
@@ -34,33 +34,32 @@ class String
   end
 
   def bold_red
-    colorize(1, 31)
+    colorize(31, 1)
   end
 
   def bold_green
-    colorize(1, 32)
+    colorize(32, 1)
   end
 
   def bold_yellow
-    colorize(1, 33)
+    colorize(33, 1)
   end
 
   def bold_blue
-    colorize(1, 34)
+    colorize(34, 1)
   end
 
   def bold_pink
-    colorize(1, 35)
+    colorize(35, 1)
   end
 
   def bold_light_blue
-    colorize(1, 36)
+    colorize(36, 1)
   end
 
   def bold
-    colorize(1, 37)
+    colorize(37, 1)
   end
-
 end
 
 if $PROGRAM_NAME == __FILE__
